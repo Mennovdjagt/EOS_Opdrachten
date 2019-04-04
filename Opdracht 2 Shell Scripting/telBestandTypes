@@ -1,0 +1,25 @@
+#! /usr/bin/env bash 
+
+# Maak 6 counters aan die allen gebruikt kunnen worden voor 1 bestandstype
+counter2=0
+counter3=0
+counter4=0
+counter5=0
+counter6=0
+counter7=0
+list="$(ls -als "$1")" 				# Maak een lijst bestaande uit alle bestanden van het meegeven directory
+for i in $list; do				# Loop door de lijst
+	case $i in 						# Vergelijk het huidige element met de 'cases'
+		*$2*) (( counter2++ ));;	# Als het huidige element gelijk is aan het tweede meegegeven argument, verhoog dan de counter
+		*$3*) (( counter3++ ));;	# van het desbetreffende argument met 1. Doe dit voor alle 'cases'.
+		*$4*) (( counter4++ ));;
+		*$5*) (( counter5++ ));;
+		*$6*) (( counter6++ ));;
+		*$7*) (( counter7++ ));;
+		*) ;;
+	esac					# Eindig case
+done						# Eindig loop
+for (( i=2; i<=$#; i++ )); do			# Zolang i kleiner is dan het aantal meegegeven argumenten
+	eval "echo \"\$$i\" komt \"\$counter$i\" keer voor."	# Echo dan hoevaak het meegegeven argument voorkomt in de meegeven directory
+done								# Eval evalueert de gegeven expressie voordat de variabelen worden opgevraagd. Zodoende gebruik ik de counter voor een deel van de variabelenaam.
+

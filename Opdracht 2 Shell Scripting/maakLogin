@@ -1,0 +1,25 @@
+#!/usr/bin/env bash 
+
+touch $1.txt								#maakt een bestand aan met de meegegeven naam er voor
+read -p "Gebruikersnaam: " gebruikersnaam	#vraagt de gebruikersnaam en slaat deze op in gebruikersnaam
+if [ "$gebruikersnaam" = "" ]; then			#check of er invoer is geweest
+	gebruikersnaam="$(whoami)"				#als er geen invoer was dan krijgt de gebruikersnaam als naam whoami
+fi
+
+while true; do												#Blijf net zolang door loopen tot de gebruiker het stopt
+	read -s -t 15 -p "Wachtwoord:" wachtwoord				#vraagt om een wachtwoord
+	echo													#maak een enter door echo uit te voeren
+	read -s -t 15 -p "Herhaal wachtwoord:" herWachtwoord	#vraagt om het wachtwoord te herhalen
+	echo													#maak een enter door echo uit te voeren
+	
+	if [ "$herWachtwoord" = "$wachtwoord" ]; then			#checked of de wachtwoorden gelijk aan elkaar zijn
+		if (( ${#wachtwoord} >= 8 )) && [[ $wachtwoord =~ [0-9]  ]] && [[ $wachtwoord =~ [a-z] ]] && [[ $wachtwoord =~ [A-Z] ]]; then
+			echo "$gebruikersnaam" "$(echo -n "$herWachtwoord" | md5sum)">> $1.txt 		#hash het wachtwoord en sla het samen met de gebruikersnaam op in het bestand
+			break								#stopt de loop
+		else
+			echo Het wachtwoord moet uit minimaal een hoofdletter, een kleine letter en een cijfer bevatten en moet minimaal acht tekens lang zijn
+		fi
+	fi								
+done									
+
+echo Hallo "$gebruikersnaam", het account is opgeslagen

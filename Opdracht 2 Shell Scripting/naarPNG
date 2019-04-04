@@ -1,0 +1,10 @@
+#!/usr/bin/env bash 
+
+lst="$(find "$1" -regex ".*jpg")"				#maakt een lijst aan met de bestanden waarvan de namen eindigen op .jpg
+					
+for n in $lst; do											#loopt door de lijst heen
+	convert $n -resize 128x128 ${i//jpg/png} 2> /dev/null	#convert alle dingen naar PNG met een resolutie van maximaal 128 bij 128
+done								
+
+echo De bestanden zijn geconverteerd					
+

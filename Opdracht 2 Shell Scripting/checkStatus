@@ -1,0 +1,15 @@
+#!/usr/bin/env bash 
+
+touch logbestand.txt										#maakt een logbestand aan
+echo "Status van de commando's: " > logbestand.txt			#maakt het logbestand leeg
+lst="$(ls $1)"												#hierin worden alle bestanden in de meegegeven directory opgeslagen 
+
+for n in $lst; do											#loopt door de lijst heen
+	$2 $n													#voert het commando dat is meegegeven op alles uit in de loop
+	
+	if [ $? -eq 0 ]; then									#checked of de exitcode gelijk is aan nul
+		echo "$2" "$n" ::::::: succesvol >> logfile.txt		#als de exitcode nul is, dan is het succesvol
+	else
+		echo "$2" "$n" ::::::: mislukt >> logfile.txt		#anders is het mislukt
+	fi														
+done								

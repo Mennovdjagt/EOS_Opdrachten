@@ -1,0 +1,12 @@
+#!/usr/bin/env bash 
+
+#Deze code is alleen bedoelt voor een raspberry pi
+#de code laat zien hoe warm de cpu en de gpu zijn
+
+tmp0=$(cat /sys/class/thermal/thermal_zone0/tmp)			#locatie waar de temperatuur van de cpu wordt opgeslagen
+tmp1=$(($tmp0/1000))										#deelt de temperatuur door 1000
+tmp2=$(($tmp0/100))											#deelt de temperatuur door 100
+cpuTempM=$(($tmp2 % $temp1))								#gebruikt tmp1 en tmp2 om een net getal te geven
+
+echo CPU temp"="$temp1"."$cpuTempM"'C"						#print de temperatuur van de CPU uit op het scherm
+echo GPU $(/opt/vc/bin/vcgencmd measure_temp)				#locatie waar de temperatuur van de gpu wordt opgeslagen

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash 
+
+mkdir -p afbeeldingen/vakantie 									#maakt de map Afbeeldingen/Vakantie aan
+lst="$(find "$1" -regex ".*\.\(jpg\|png\)" | grep vakantie)" 	#doorzoek de bestanden waarvan de naam .jpg of .png bevat en gebruik grep om het woord vakantie te vinden
+
+for n in $lst; do							#loopt door de bestanden
+	cp $n afbeeldingen/vakantie				#kopiert alles naar afbeeldingen/vakantie
+done										
+
+echo bestanden succesvol verplaatst								
+

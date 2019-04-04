@@ -1,0 +1,11 @@
+#!/usr/bin/env bash 
+
+mkdir -p afbeeldingen 							#maakt een locatie genaamd afbeeldingen
+lst="$(find "$1" -regex ".*\.\(jpg\|png\)")"	#geeft een lijst met alle bestandsnamen die eindigen op .jpg of .png
+
+for n in $lst; do								#loopt door lst
+	cp $n afbeeldingen							#kopiert de bestanden naar afbeeldingen
+done											
+
+echo De afbeeldingen zijn gesorteerd.			
+
